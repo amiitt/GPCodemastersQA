@@ -9,7 +9,6 @@ import sys
 
 
 class SauceDemo(unittest.TestCase):
-    "Class to run automated app entry process"
     def setUp(self):
         "Setup for the test"
         self.driver = webdriver.Chrome()
@@ -38,22 +37,22 @@ class SauceDemo(unittest.TestCase):
         self.driver.find_element_by_id('login-button').click()
      
 
-# test as locked-out user
     def test_login_as_locked_out_user(self): 
+        "test as locked-out user"
         self.goto_homepage()
         self.perform_login(self.lockedout_username)
         sleep(2)
         assert 'Epic sadface: Sorry, this user has been locked out.' in self.driver.page_source
 
-# test as standard user
     def test_login_as_standard_user(self):
+        "test as standard user"
         self.goto_homepage()
         self.perform_login(self.standard_username)
         sleep(2)
         assert 'Epic sadface: Sorry, this user has been locked out.' not in self.driver.page_source
 
-# test price filtering
     def test_sorting_by_price(self):
+        "test price filtering"
         self.goto_homepage()
         self.perform_login(self.standard_username)
         sleep(2)
@@ -68,8 +67,8 @@ class SauceDemo(unittest.TestCase):
         print(price_list)
         assert price_list == sorted(price_list,reverse=True)
 
-# test logout
     def test_logout(self):
+        "test logout"
         self.goto_homepage()
         self.open_login_modal()
         self.perform_login(self.username)
