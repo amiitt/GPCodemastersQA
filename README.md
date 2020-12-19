@@ -1,7 +1,8 @@
 # GP Codemasters Hackathon-QA
 
-Name: Amit Saha
-email: amitbuet@gmail.com
+**Name**: Amit Saha
+
+**Email**: amitbuet@gmail.com
 
 Here I have submitted my tasks.
 
