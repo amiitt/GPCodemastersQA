@@ -10,4 +10,4 @@ Description:
 
 3. Please find the task for Dcoumentation in 4 tabs under Documentation.xlsx file
 
-4. Please find the task for API automation under apiautomation folder
+4. Please find the task for API automation as SwaggerPet.postman_collection.json file
