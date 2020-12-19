@@ -6,11 +6,9 @@ from selenium.common.exceptions import NoSuchElementException
 import unittest
 import time
 import sys
-from env import *
 
 
 class DemoBlazeSite(unittest.TestCase):
-    "Class to run automated app entry process"
     def setUp(self):
         "Setup for the test"
         self.driver = webdriver.Chrome()
@@ -56,22 +54,25 @@ class DemoBlazeSite(unittest.TestCase):
      
 
     def test_signup(self):
+        "test sign up functionality for positive & negative scenarios"
         self.goto_homepage()
         self.open_signup_modal()
 
+# this is positive case
         self.perform_signup(self.username)
         obj = self.driver.switch_to.alert
         msg = obj.text
         obj.accept()
         assert "Sign up successful." in msg
 
+#  this is negative case
         self.perform_signup('')
         obj = self.driver.switch_to.alert
         msg = obj.text
         obj.accept()
         assert "Please fill out Username and Password." in msg
 
-
+# this is negative case
         self.perform_signup(self.username)
         obj = self.driver.switch_to.alert
         obj.accept()
@@ -79,15 +80,18 @@ class DemoBlazeSite(unittest.TestCase):
         assert "This user already exist." in msg
 
     def test_login(self):
+        "test sign up functionality for positive & negative scenarios"
         self.goto_homepage()
         self.open_login_modal()
 
+# this is negative case
         self.perform_login('')
         obj = self.driver.switch_to.alert
         msg = obj.text
         obj.accept()
         assert "Please fill out Username and Password." in msg
 
+# this is negative case
         name = 'QA-'+str(random.randint(1000,9000))
         self.perform_login(name)
         obj = self.driver.switch_to.alert
@@ -95,15 +99,18 @@ class DemoBlazeSite(unittest.TestCase):
         msg = obj.text
         assert "User does not exist." in msg
 
+# this is positive case
         self.perform_login(self.username)
         welcomebtn = self.driver.find_element_by_id('nameofuser')
         assert 'Welcome '+name in welcomebtn.text
 
 
     def test_add_phone(self):
+        "test adding one phone"
         self.goto_homepage()
         self.open_login_modal()
         self.perform_login(self.username)
+        sleep(2)
         phones = self.driver.find_element_by_xpath('//*[@id="itemc"][1]')
         phones.click()
         sleep(2)
@@ -118,9 +125,11 @@ class DemoBlazeSite(unittest.TestCase):
         assert "Product added." in msg
 
     def test_add_laptop(self):
+        "test adding one laptop"
         self.goto_homepage()
         self.open_login_modal()
         self.perform_login(self.username)
+        sleep(2)
         laptops = self.driver.find_element_by_xpath('//*[@id="itemc"][2]')
         laptops.click()
         sleep(2)
@@ -135,9 +144,11 @@ class DemoBlazeSite(unittest.TestCase):
         assert "Product added." in msg
 
     def test_add_monitor(self):
+        "test adding one monitor"
         self.goto_homepage()
         self.open_login_modal()
         self.perform_login(self.username)
+        sleep(2)
         monitors = self.driver.find_element_by_xpath('//*[@id="itemc"][3]')
         monitors.click()
         sleep(2)
@@ -152,16 +163,20 @@ class DemoBlazeSite(unittest.TestCase):
         assert "Product added." in msg
 
     def test_cart_amount(self):
+        "test total amount of products sin cart"
         self.goto_homepage()
         self.open_login_modal()
         self.perform_login(self.username)
+        sleep(2)
         self.driver.find_element_by_xpath('/html/body/nav/div/div/ul/li[4]/a').click()
         self.assertequal(self.driver.find_element_by_id('totalp'),1670)
 
     def test_place_order(self):
+        "test order placing functionality"
         self.goto_homepage()
         self.open_login_modal()
         self.perform_login(self.username)
+        sleep(2)
         self.driver.find_element_by_xpath('/html/body/nav/div/div/ul/li[4]/a').click()
         sleep(3)
         self.driver.find_element_by_xpath('/html/body/div[6]/div/div[2]/button').click()
@@ -179,9 +194,11 @@ class DemoBlazeSite(unittest.TestCase):
         assert "Thank you for your purchase!" in msg
 
     def test_send_message(self):
+        "test sending message from contact"
         self.goto_homepage()
         self.open_login_modal()
         self.perform_login(self.username)
+        sleep(2)
         contactbtn = self.driver.find_element_by_xpath('/html/body/nav/div/div/ul/li[2]/a')
         contactbtn.click()
         email = self.driver.find_element_by_id('recipient-email')
@@ -195,9 +212,11 @@ class DemoBlazeSite(unittest.TestCase):
         assert "Thanks for the message!!" in msg
 
     def test_logout(self):
+        "test logout feature"
         self.goto_homepage()
         self.open_login_modal()
         self.perform_login(self.username)
+        sleep(2)
         logoutbtn = self.driver.find_element_by_id('logout2')
         logoutbtn.click()
         sleep(2)
