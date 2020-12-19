@@ -1,4 +1,4 @@
-# GP Codemaster Hackathon-QA
+# GP Codemasters Hackathon-QA
 
 Here I have submitted my tasks.
 
